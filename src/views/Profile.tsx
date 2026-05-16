@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import {
   Camera, Mail, Phone, MapPin, Calendar,
-  Shield, Edit3, Award, TrendingUp, Clock, CheckCircle2,
+  Shield, Edit3, Clock, CheckCircle2,
   Laptop, CreditCard as CardIcon, Smartphone
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import Avatar from '../components/ui/Avatar';
 import ProgressBar from '../components/ui/ProgressBar';
 import { useLang } from '../context/LangContext';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Bell, RefreshCw, ChevronDown, Lock, Sun, Moon, User } from 'lucide-react';
+import { Shield, RefreshCw, ChevronDown, Lock, Sun, Moon, User } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import { useLang } from '../context/LangContext';

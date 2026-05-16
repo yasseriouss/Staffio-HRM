@@ -108,7 +108,7 @@ const OrgNodeCard: React.FC<{ node: OrgNode; isRtl: boolean; t: any }> = ({ node
             )}
             
             <div style={{ display: 'flex', gap: 32, flexDirection: isRtl ? 'row-reverse' : 'row' }}>
-              {node.reports.map((report, index) => (
+              {node.reports.map((report) => (
                 <div key={report.id} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   {/* Vertical line up to horizontal line */}
                   <div style={{ position: 'absolute', top: -24, width: 2, height: 24, background: 'var(--surface-border)', zIndex: 1 }} />

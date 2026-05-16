@@ -1,7 +1,13 @@
+import React from 'react';
+import { TrendingUp, Briefcase, Zap, Server } from 'lucide-react';
 import { useLang } from '../context/LangContext';
+import Card from '../components/ui/Card';
+import Badge from '../components/ui/Badge';
+import ProgressBar from '../components/ui/ProgressBar';
+import Avatar from '../components/ui/Avatar';
 
 const Dashboard: React.FC = () => {
-  const { t, lang } = useLang();
+  const { t } = useLang();
 
   const METRICS = [
     { titleKey: 'dash.total_emp',    value: '1,284', icon: TrendingUp, badge: '+12%',      badgeVariant: 'success' as const, subKey: 'dash.vs_month' },
