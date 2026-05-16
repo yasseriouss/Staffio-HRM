@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, SlidersHorizontal } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLang } from './context/LangContext';
 
+import Auth        from './views/Auth';
 import Dashboard   from './views/Dashboard';
 import Recruitment from './views/Recruitment';
 import Employees   from './views/Employees';
@@ -12,12 +13,39 @@ import Payroll     from './views/Payroll';
 import Messages    from './views/Messages';
 import Settings    from './views/Settings';
 import Profile     from './views/Profile';
+import OrgChart    from './views/OrgChart';
+import LandingPage from './views/Landing';
+import Attendance  from './views/Attendance';
+import Performance from './views/Performance';
 
 const VIEWS_WITH_ACTIONS = ['dashboard', 'employees', 'recruitment', 'payroll'];
 
 const App: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [viewRoute, setViewRoute] = useState<'landing' | 'auth' | 'app'>('landing');
   const [activeView, setActiveView] = useState('dashboard');
   const { t, rtl } = useLang();
+
+  // Simple persistence for auth state during dev
+  useEffect(() => {
+    const storedAuth = localStorage.getItem('staffio_auth');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
+      setViewRoute('app');
+    }
+  }, []);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setViewRoute('app');
+    localStorage.setItem('staffio_auth', 'true');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setViewRoute('landing');
+    localStorage.removeItem('staffio_auth');
+  };
 
   const PAGE_LABELS: Record<string, string> = {
     dashboard:   t('nav.dashboard'),
@@ -27,6 +55,9 @@ const App: React.FC = () => {
     messages:    t('nav.messages'),
     settings:    t('nav.settings'),
     profile:     t('nav.profile'),
+    orgchart:    t('nav.orgchart'),
+    attendance:  t('nav.attendance'),
+    performance: t('nav.performance'),
   };
 
   const renderView = () => {
@@ -38,9 +69,20 @@ const App: React.FC = () => {
       case 'messages':    return <Messages />;
       case 'settings':    return <Settings />;
       case 'profile':     return <Profile />;
+      case 'orgchart':    return <OrgChart />;
+      case 'attendance':  return <Attendance />;
+      case 'performance': return <Performance />;
       default:            return <Dashboard />;
     }
   };
+
+  if (viewRoute === 'landing') {
+    return <LandingPage onLogin={() => setViewRoute('auth')} onSignup={() => setViewRoute('auth')} />;
+  }
+
+  if (viewRoute === 'auth' || !isAuthenticated) {
+    return <Auth onLogin={handleLogin} />;
+  }
 
   return (
     <div
@@ -51,9 +93,9 @@ const App: React.FC = () => {
       <Sidebar activeView={activeView} setActiveView={setActiveView} />
 
       <div className="main-wrapper">
-        <Topbar />
+        <Topbar onLogout={handleLogout} />
 
-        <main className="content-area">
+        <main className="content-area mobile-content">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeView}
@@ -63,7 +105,7 @@ const App: React.FC = () => {
               transition={{ duration: 0.18, ease: 'easeOut' }}
             >
               {/* Page header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
                 <div>
                   <h1 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: rtl ? '0' : '-0.02em' }}>
                     {PAGE_LABELS[activeView]}

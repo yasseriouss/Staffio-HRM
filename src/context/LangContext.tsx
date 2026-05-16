@@ -18,12 +18,63 @@ const DICT: Record<string, Record<Lang, string>> = {
   'nav.messages':    { en: 'Messages',    ar: 'الرسائل'      },
   'nav.settings':    { en: 'Settings',    ar: 'الإعدادات'    },
   'nav.profile':     { en: 'Profile',     ar: 'الملف الشخصي' },
+  'nav.orgchart':    { en: 'Org Chart',   ar: 'الهيكل التنظيمي' },
+  'nav.attendance':  { en: 'Attendance',  ar: 'الحضور والإنصراف' },
+  'nav.performance': { en: 'Performance', ar: 'الأداء' },
+
+  // Org Chart
+  'org.title':       { en: 'Organization Structure', ar: 'الهيكل التنظيمي للمؤسسة' },
+  'org.subtitle':    { en: 'Visual representation of teams and reporting lines', ar: 'تمثيل مرئي للفرق وخطوط الإبلاغ' },
+  'org.ceo':         { en: 'Chief Executive Officer', ar: 'الرئيس التنفيذي' },
+  'org.cto':         { en: 'Chief Technology Officer', ar: 'الرئيس التقني' },
+  'org.cfo':         { en: 'Chief Financial Officer', ar: 'الرئيس المالي' },
+  'org.hr_dir':      { en: 'HR Director', ar: 'مدير الموارد البشرية' },
+  'org.eng_lead':    { en: 'Engineering Lead', ar: 'قائد الهندسة' },
+  'org.design_lead': { en: 'Design Lead', ar: 'قائد التصميم' },
+  'org.reports':     { en: 'Direct Reports', ar: 'تقارير مباشرة' },
+
+  // Attendance
+  'att.title':       { en: 'Time & Attendance', ar: 'الحضور والإنصراف' },
+  'att.clock_in':    { en: 'Clock In',    ar: 'تسجيل الحضور' },
+  'att.clock_out':   { en: 'Clock Out',   ar: 'تسجيل الإنصراف' },
+  'att.status':      { en: 'Current Status', ar: 'الحالة الحالية' },
+  'att.on_duty':     { en: 'On Duty',     ar: 'على رأس العمل' },
+  'att.off_duty':    { en: 'Off Duty',    ar: 'خارج العمل' },
+  'att.timesheet':   { en: 'Recent Timesheets', ar: 'سجلات الحضور الأخيرة' },
+  'att.hours':       { en: 'Hours Worked', ar: 'ساعات العمل' },
+  'att.overtime':    { en: 'Overtime',    ar: 'ساعات إضافية' },
+  'att.date':        { en: 'Date',        ar: 'التاريخ' },
+
+  // Performance
+  'perf.title':      { en: 'Performance & OKRs', ar: 'الأداء والأهداف' },
+  'perf.score':      { en: 'Performance Score', ar: 'درجة الأداء' },
+  'perf.goals':      { en: 'Active Goals', ar: 'الأهداف النشطة' },
+  'perf.reviews':    { en: 'Quarterly Reviews', ar: 'المراجعات الربع سنوية' },
+  'perf.progress':   { en: 'Goal Progress', ar: 'التقدم في الأهداف' },
+
+  // Landing Page
+  'landing.hero_title':   { en: 'Transform Chaos into Clear Management Insights', ar: 'حول الفوضى إلى رؤى إدارية واضحة' },
+  'landing.hero_sub':     { en: 'A Better Way to Manage Your Workforce. Sign Up Now To Get The Whole Experience', ar: 'طريقة أفضل لإدارة القوى العاملة لديك. سجل الآن للحصول على التجربة الكاملة' },
+  'landing.cta_signup':   { en: 'Your Success Starts From Here', ar: 'نجاحك يبدأ من هنا' },
+  'landing.nav_home':     { en: 'Home', ar: 'الرئيسية' },
+  'landing.nav_features': { en: 'Features', ar: 'المميزات' },
+  'landing.nav_reviews':  { en: 'Reviews', ar: 'التقييمات' },
+  'landing.nav_plans':    { en: 'Plans', ar: 'الخطط' },
+  'landing.nav_faqs':     { en: 'FAQs', ar: 'الأسئلة الشائعة' },
+  'landing.nav_login':    { en: 'Log In', ar: 'تسجيل الدخول' },
+  'landing.nav_signup':   { en: 'Sign Up', ar: 'إنشاء حساب' },
+  'landing.feature_1':    { en: 'Smart Attendance Tracking', ar: 'تتبع الحضور الذكي' },
+  'landing.feature_2':    { en: 'Payroll & Salary Automation', ar: 'أتمتة الرواتب والأجور' },
+  'landing.feature_3':    { en: 'Performance & KPI Insights', ar: 'رؤى الأداء ومؤشرات الأداء' },
+  'landing.pricing_title': { en: 'Choose Your Perfect Plan For Your Business', ar: 'اختر الخطة المثالية لعملك' },
+  'landing.pricing_sub':   { en: 'Find the plan that fits your team\'s needs and scales with your growth.', ar: 'ابحث عن الخطة التي تناسب احتياجات فريقك وتتوسع مع نموك.' },
 
   // App
   'app.subtitle':    { en: 'Staffio HR Platform', ar: 'منصة ستافيو لإدارة الموارد البشرية' },
   'app.search':      { en: 'Search employees, jobs, reports…', ar: 'ابحث عن موظف، وظيفة، تقرير…' },
   'app.status':      { en: 'All systems operational',  ar: 'جميع الأنظمة تعمل' },
   'app.logo_sub':    { en: 'HR Intelligence', ar: 'منصة الموارد البشرية' },
+  'app.logout':      { en: 'Logout', ar: 'تسجيل الخروج' },
 
   // User
   'user.name':       { en: 'John Doe', ar: 'جون دو' },
@@ -301,6 +352,14 @@ const DICT: Record<string, Record<Lang, string>> = {
   'set.light':       { en: 'Light',            ar: 'فاتح'              },
   'set.uptime_val':  { en: '60+ days',        ar: '60+ يوم'         },
   'set.updated_val': { en: 'May 14, 2026',     ar: '14 مايو 2026'    },
+
+  // Auth
+  'auth.title':      { en: 'System Access',    ar: 'الوصول للنظام'     },
+  'auth.subtitle':   { en: 'Enter credentials to authenticate', ar: 'أدخل بيانات الاعتماد للمصادقة' },
+  'auth.email':      { en: 'Email Address',    ar: 'البريد الإلكتروني'  },
+  'auth.password':   { en: 'Password',         ar: 'كلمة المرور'       },
+  'auth.login':      { en: 'Authenticate',     ar: 'مصادقة'          },
+  'auth.forgot':     { en: 'Forgot Password?', ar: 'نسيت كلمة المرور؟' },
 };
 
 const LangContext = createContext<LangCtx>({

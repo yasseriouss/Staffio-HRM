@@ -443,6 +443,7 @@ a      { text-decoration: none; color: inherit; }
 .gap-4  { gap: 16px; }
 .gap-6  { gap: 24px; }
 .flex-1 { flex: 1; }
+.flex-wrap { flex-wrap: wrap; }
 
 /* =============================================
    SPACING
@@ -510,3 +511,117 @@ a      { text-decoration: none; color: inherit; }
 .space-y-6 > * + * { margin-top: 24px; }
 
 .divider { height: 1px; background: var(--surface-border); }
+
+/* =============================================
+   RESPONSIVE (MOBILE)
+   ============================================= */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  /* Sidebar becomes Bottom Nav */
+  .sidebar {
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-sidebar);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .sidebar-logo, .sidebar-footer {
+    display: none;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+  }
+
+  .sidebar-item {
+    flex-direction: column;
+    width: auto;
+    gap: 6px;
+    margin: 0;
+    padding: 8px 12px;
+    background: transparent !important;
+  }
+
+  .sidebar-item span {
+    font-size: 10px;
+    display: block;
+  }
+
+  .sidebar-item.active {
+    color: var(--color-primary-200);
+  }
+
+  .sidebar-item.active svg {
+    color: var(--color-primary-200);
+  }
+
+  .main-wrapper {
+    margin-bottom: 70px;
+    width: 100%;
+  }
+
+  /* Topbar Adjustments */
+  .topbar {
+    padding: 24px 20px 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    gap: 16px;
+    /* 'Header Card' background: Industrial-Luxury gradient */
+    background: linear-gradient(135deg, var(--color-sidebar) 0%, #1a1a3a 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only-logo {
+    display: block !important;
+  }
+
+  .topbar-actions {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .mobile-icon-btn {
+    color: #fff !important;
+  }
+
+  .mobile-icon-btn span {
+    border-color: var(--color-sidebar) !important;
+  }
+
+  /* Content area */
+  .mobile-content {
+    padding: 0 16px 16px;
+  }
+
+  /* Grid fallbacks */
+  .grid-4, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .col-span-2 {
+    grid-column: span 1;
+  }
+}

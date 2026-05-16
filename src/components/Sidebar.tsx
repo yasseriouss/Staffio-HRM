@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   LayoutDashboard, UserPlus, Users,
-  CreditCard, MessageSquare, Settings
+  CreditCard, MessageSquare, Settings,
+  Clock, Target, GitBranch
 } from 'lucide-react';
 import { useLang } from '../context/LangContext';
 
@@ -14,6 +15,9 @@ const NAV = [
   { id: 'dashboard',   labelKey: 'nav.dashboard',   icon: LayoutDashboard },
   { id: 'recruitment', labelKey: 'nav.recruitment',  icon: UserPlus        },
   { id: 'employees',   labelKey: 'nav.employees',    icon: Users           },
+  { id: 'attendance',  labelKey: 'nav.attendance',   icon: Clock           },
+  { id: 'performance', labelKey: 'nav.performance',  icon: Target          },
+  { id: 'orgchart',    labelKey: 'nav.orgchart',     icon: GitBranch       },
   { id: 'payroll',     labelKey: 'nav.payroll',      icon: CreditCard      },
   { id: 'messages',    labelKey: 'nav.messages',     icon: MessageSquare   },
   { id: 'settings',    labelKey: 'nav.settings',     icon: Settings        },
