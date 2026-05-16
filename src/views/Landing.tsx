@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Check, Star, ArrowRight, Clock, CreditCard, Target } from 'lucide-react';
+import { ArrowRight, Clock, CreditCard, Target, LayoutDashboard } from 'lucide-react';
 import { useLang } from '../context/LangContext';
 
 interface LandingPageProps {
@@ -10,7 +10,6 @@ interface LandingPageProps {
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
   const { t, rtl } = useLang();
   const [activeTab, setActiveTab] = useState<'hr' | 'employee'>('hr');
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <div className="landing-page" dir={rtl ? 'rtl' : 'ltr'} style={{
@@ -25,97 +24,128 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '24px 5%', maxWidth: 1400, margin: '0 auto',
         position: 'sticky', top: 0, zIndex: 1000,
-        background: 'rgba(10, 10, 26, 0.8)', backdropFilter: 'blur(12px)'
+        background: 'rgba(10, 10, 26, 0.95)', borderBottom: '1px solid rgba(255,255,255,0.1)'
       }}>
         <div className="logo" style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-0.04em' }}>
           Staff<span style={{ color: 'var(--color-primary-200)' }}>io</span>
         </div>
-        <div className="nav-links desktop-only" style={{ display: 'flex', gap: 32, fontSize: 14, fontWeight: 600, color: '#e2e2fd' }}>
-          <a href="#home" style={{ color: '#fff', borderBottom: '2px solid var(--color-primary-200)', paddingBottom: 4 }}>{t('landing.nav_home')}</a>
-          <a href="#features">{t('landing.nav_features')}</a>
+        <div className="nav-links desktop-only" style={{ display: 'flex', gap: 32, fontSize: 13, fontWeight: 600, color: '#98a1b2', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <a href="#home" style={{ color: '#fff' }}>{t('landing.nav_home')}</a>
+          <a href="#features" style={{ transition: 'color 0.2s' }}>{t('landing.nav_features')}</a>
           <a href="#reviews">{t('landing.nav_reviews')}</a>
           <a href="#plans">{t('landing.nav_plans')}</a>
           <a href="#faqs">{t('landing.nav_faqs')}</a>
         </div>
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <button onClick={onLogin} style={{ color: '#e2e2fd', fontWeight: 600, fontSize: 14, background: 'none', border: 'none', cursor: 'pointer' }}>{t('landing.nav_login')}</button>
+          <button onClick={onLogin} style={{ color: '#fff', fontWeight: 700, fontSize: 13, background: 'none', border: 'none', cursor: 'pointer', textTransform: 'uppercase' }}>{t('landing.nav_login')}</button>
           <button onClick={onSignup} style={{
-            background: 'var(--color-primary-300)', color: '#fff',
-            padding: '10px 24px', borderRadius: 99, fontWeight: 700, fontSize: 14,
-            border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(112, 112, 243, 0.3)'
+            background: 'var(--color-primary)', color: '#fff',
+            padding: '12px 24px', borderRadius: 0, fontWeight: 800, fontSize: 13,
+            border: 'none', cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '0.05em',
+            boxShadow: '4px 4px 0 var(--color-primary-300)'
           }}>{t('landing.nav_signup')}</button>
         </div>
       </nav>
 
       {/* ── Hero Section ── */}
       <section className="hero" style={{
-        textAlign: 'center', padding: '100px 20px',
-        background: 'radial-gradient(circle at center, #1a1a3a 0%, #0a0a1a 100%)',
-        position: 'relative'
+        textAlign: 'center', padding: '120px 20px',
+        background: 'linear-gradient(to bottom, #0a0a1a, #111122)',
+        position: 'relative',
+        borderBottom: '1px solid rgba(255,255,255,0.05)'
       }}>
         <div style={{
-          position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)',
-          width: '80%', height: '60%', background: 'var(--color-primary)', opacity: 0.05,
-          filter: 'blur(120px)', borderRadius: '50%', pointerEvents: 'none'
+          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+          backgroundSize: '40px 40px', pointerEvents: 'none'
         }} />
         
-        <h1 style={{ 
-          fontSize: 'clamp(42px, 7vw, 72px)', 
-          fontWeight: 900, 
-          lineHeight: 1.05, 
-          marginBottom: 24, 
-          maxWidth: 900, 
-          margin: '0 auto 24px',
-          letterSpacing: '-0.03em'
-        }}>
-          {t('landing.hero_title').split(' ').map((word, i) => 
-            word === 'Clear' || word === 'Insights' || word === 'رؤى' || word === 'واضحة' ? 
-            <span key={i} style={{ color: 'var(--color-primary-100)' }}>{word} </span> : word + ' '
-          )}
-        </h1>
-        <p style={{ fontSize: 20, color: '#c6c6fa', maxWidth: 650, margin: '0 auto 48px', lineHeight: 1.6, opacity: 0.9 }}>
-          {t('landing.hero_sub')}
-        </p>
-        <button onClick={onSignup} style={{
-          background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-300) 100%)', 
-          color: '#fff',
-          padding: '20px 48px', borderRadius: 99, fontWeight: 800, fontSize: 18,
-          border: 'none', cursor: 'pointer',
-          boxShadow: '0 12px 32px rgba(112, 112, 243, 0.4)',
-          transition: 'transform 0.2s'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-        >
-          {t('landing.cta_signup')}
-        </button>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ 
+            display: 'inline-flex', alignItems: 'center', gap: 8, 
+            background: 'rgba(112, 112, 243, 0.1)', border: '1px solid var(--color-primary-200)',
+            padding: '6px 16px', marginBottom: 32, fontSize: 12, fontWeight: 700, color: 'var(--color-primary-100)',
+            textTransform: 'uppercase', letterSpacing: '0.1em'
+          }}>
+            <span style={{ width: 6, height: 6, background: 'var(--color-primary)', borderRadius: '50%' }} />
+            New Version 2.4 Available
+          </div>
+
+          <h1 style={{ 
+            fontSize: 'clamp(48px, 8vw, 84px)', 
+            fontWeight: 900, 
+            lineHeight: 0.95, 
+            marginBottom: 32, 
+            maxWidth: 1000, 
+            margin: '0 auto 32px',
+            letterSpacing: '-0.04em',
+            textTransform: 'uppercase'
+          }}>
+            {t('landing.hero_title').split(' ').map((word, i) => 
+              word === 'Clear' || word === 'Insights' || word === 'رؤى' || word === 'واضحة' ? 
+              <span key={i} style={{ color: 'var(--color-primary-200)', WebkitTextStroke: '1px var(--color-primary)' }}>{word} </span> : word + ' '
+            )}
+          </h1>
+          <p style={{ fontSize: 18, color: '#98a1b2', maxWidth: 700, margin: '0 auto 48px', lineHeight: 1.6, fontWeight: 500 }}>
+            {t('landing.hero_sub')}
+          </p>
+          
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
+            <button onClick={onSignup} style={{
+              background: 'var(--color-primary)', 
+              color: '#fff',
+              padding: '20px 40px', borderRadius: 0, fontWeight: 900, fontSize: 16,
+              border: 'none', cursor: 'pointer',
+              boxShadow: '6px 6px 0 #1a1a3a',
+              textTransform: 'uppercase', letterSpacing: '0.05em'
+            }}>
+              {t('landing.cta_signup')}
+            </button>
+            <button onClick={onLogin} style={{
+              background: 'rgba(255,255,255,0.05)', 
+              color: '#fff',
+              padding: '20px 40px', borderRadius: 0, fontWeight: 900, fontSize: 16,
+              border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer',
+              textTransform: 'uppercase', letterSpacing: '0.05em',
+              display: 'flex', alignItems: 'center', gap: 10
+            }}>
+              <LayoutDashboard size={20} />
+              Try System
+            </button>
+          </div>
+        </div>
 
         {/* Dashboard Preview */}
-        <div style={{ marginTop: 80, display: 'flex', justifyContent: 'center', perspective: '1000px' }}>
+        <div style={{ marginTop: 100, display: 'flex', justifyContent: 'center' }}>
           <div style={{
-            width: '95%', maxWidth: 1100, height: 600,
-            background: '#121212', borderRadius: '32px 32px 0 0',
-            boxShadow: '0 -40px 100px rgba(0,0,0,0.6)',
-            border: '1px solid rgba(255,255,255,0.1)', borderBottom: 'none',
+            width: '100%', maxWidth: 1200, height: 600,
+            background: '#05050a', borderRadius: 0,
+            boxShadow: '0 40px 120px rgba(0,0,0,0.8)',
+            border: '1px solid rgba(255,255,255,0.08)',
             overflow: 'hidden',
-            transform: 'rotateX(10deg)',
-            transformOrigin: 'top center'
+            position: 'relative'
           }}>
-            {/* Mock UI */}
-            <div style={{ display: 'flex', height: '100%' }}>
-              <div style={{ width: 200, background: '#0a0a0a', borderRight: '1px solid #222', padding: 20 }}>
-                 <div style={{ height: 20, width: '80%', background: '#222', borderRadius: 4, marginBottom: 20 }} />
-                 {[1,2,3,4,5].map(i => <div key={i} style={{ height: 32, background: i === 1 ? 'var(--color-primary-300)' : '#1a1a1a', borderRadius: 8, marginBottom: 12, opacity: i === 1 ? 1 : 0.4 }} />)}
+             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40, background: '#111', borderBottom: '1px solid #222', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 8 }}>
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f56' }} />
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f' }} />
+             </div>
+            <div style={{ display: 'flex', height: 'calc(100% - 40px)', marginTop: 40 }}>
+              <div style={{ width: 220, background: '#0a0a0a', borderRight: '1px solid #1a1a1a', padding: 24 }}>
+                 <div style={{ height: 2, width: '40%', background: 'var(--color-primary)', marginBottom: 32 }} />
+                 {[1,2,3,4,5,6].map(i => <div key={i} style={{ height: 12, background: i === 1 ? 'var(--color-primary)' : '#1a1a1a', marginBottom: 24, opacity: i === 1 ? 1 : 0.3 }} />)}
               </div>
-              <div style={{ flex: 1, padding: 32, textAlign: 'left' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 40 }}>
-                   <div style={{ height: 24, width: 200, background: '#222', borderRadius: 4 }} />
-                   <div style={{ height: 24, width: 100, background: '#222', borderRadius: 4 }} />
+              <div style={{ flex: 1, padding: 48, textAlign: 'left' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 60 }}>
+                   <div style={{ height: 40, width: 300, background: '#111', border: '1px solid #222' }} />
+                   <div style={{ height: 40, width: 40, background: 'var(--color-primary-100)' }} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20, marginBottom: 40 }}>
-                   {[1,2,3].map(i => <div key={i} style={{ height: 120, background: '#1a1a1a', borderRadius: 16, border: '1px solid #222' }} />)}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32, marginBottom: 60 }}>
+                   {[1,2,3].map(i => <div key={i} style={{ height: 140, background: '#0a0a0a', border: '1px solid #1a1a1a', position: 'relative' }}>
+                      <div style={{ position: 'absolute', top: 0, left: 0, width: 4, height: '100%', background: i === 1 ? 'var(--color-primary)' : '#222' }} />
+                   </div>)}
                 </div>
-                <div style={{ height: 240, background: '#1a1a1a', borderRadius: 16, border: '1px solid #222' }} />
+                <div style={{ height: 260, background: '#0a0a0a', border: '1px solid #1a1a1a' }} />
               </div>
             </div>
           </div>
@@ -123,126 +153,103 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
       </section>
 
       {/* ── Features Section ── */}
-      <section id="features" style={{ background: '#fff', color: '#0a0a1a', padding: '120px 20px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 42, fontWeight: 900, marginBottom: 80, letterSpacing: '-0.02em' }}>What Is Staffio?</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 48, maxWidth: 1200, margin: '0 auto' }}>
-          {[
-            { title: t('landing.feature_1'), desc: 'Real-time monitoring with geofencing and biometric integration.', icon: <Clock size={40} /> },
-            { title: t('landing.feature_2'), desc: 'Automated tax calculations and direct deposits in one click.', icon: <CreditCard size={40} /> },
-            { title: t('landing.feature_3'), desc: 'Data-driven OKRs and continuous feedback loops for growth.', icon: <Target size={40} /> }
-          ].map((f, i) => (
-            <div key={i} style={{ flex: '1 1 300px', padding: 40, background: '#f8f9fc', borderRadius: 24, textAlign: 'left' }}>
-              <div style={{ width: 80, height: 80, borderRadius: 20, background: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 32, color: '#fff', boxShadow: '0 8px 20px rgba(112,112,243,0.2)' }}>
-                {f.icon}
+      <section id="features" style={{ background: '#fff', color: '#0a0a1a', padding: '140px 20px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 48, fontWeight: 900, marginBottom: 80, letterSpacing: '-0.03em', textTransform: 'uppercase' }}>Precision Engineering</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 1 }}>
+            {[
+              { title: t('landing.feature_1'), desc: 'Industrial-grade tracking with sub-second accuracy and geofencing.', icon: <Clock size={32} /> },
+              { title: t('landing.feature_2'), desc: 'Automated high-volume payroll with multi-currency support.', icon: <CreditCard size={32} /> },
+              { title: t('landing.feature_3'), desc: 'Systemic performance analysis via unified OKR frameworks.', icon: <Target size={32} /> }
+            ].map((f, i) => (
+              <div key={i} style={{ padding: 60, background: '#fff', border: '1px solid #f0f0f0', textAlign: 'left', transition: 'background 0.3s' }}>
+                <div style={{ color: 'var(--color-primary)', marginBottom: 32 }}>
+                  {f.icon}
+                </div>
+                <h3 style={{ fontSize: 24, fontWeight: 900, marginBottom: 20, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{f.title}</h3>
+                <p style={{ color: '#666', lineHeight: 1.7, fontSize: 16 }}>{f.desc}</p>
+                <div style={{ marginTop: 32, width: 40, height: 2, background: 'var(--color-primary)' }} />
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, marginBottom: 16, color: 'var(--color-primary)' }}>{f.title}</h3>
-              <p style={{ color: '#475467', lineHeight: 1.6 }}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Partners Placeholder */}
-        <div style={{ marginTop: 80, opacity: 0.5, fontSize: 14, fontWeight: 600 }}>
-          [ Partner Logos Asset Here ]
+            ))}
+          </div>
         </div>
 
         {/* Tabs Section */}
-        <div style={{ marginTop: 100 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 800, marginBottom: 40 }}>See What Staffio Can Do</h2>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 20, borderBottom: '1px solid var(--surface-border)', maxWidth: 600, margin: '0 auto 40px' }}>
+        <div style={{ marginTop: 140 }}>
+          <h2 style={{ fontSize: 42, fontWeight: 900, marginBottom: 60, textTransform: 'uppercase' }}>System Modules</h2>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 40, borderBottom: '2px solid #f0f0f0', maxWidth: 800, margin: '0 auto 60px' }}>
             <button 
               onClick={() => setActiveTab('hr')}
-              style={{ padding: '16px 32px', borderBottom: activeTab === 'hr' ? '3px solid var(--color-primary)' : '3px solid transparent', fontWeight: 600, color: activeTab === 'hr' ? 'var(--color-primary)' : 'var(--text-muted)' }}>
-              HR Manager
+              style={{ padding: '24px 40px', borderBottom: activeTab === 'hr' ? '4px solid var(--color-primary)' : '4px solid transparent', fontWeight: 900, color: activeTab === 'hr' ? 'var(--color-primary)' : '#999', background: 'none', border: 'none', cursor: 'pointer', textTransform: 'uppercase', fontSize: 14, letterSpacing: '0.1em' }}>
+              HR Administration
             </button>
             <button 
               onClick={() => setActiveTab('employee')}
-              style={{ padding: '16px 32px', borderBottom: activeTab === 'employee' ? '3px solid var(--color-primary)' : '3px solid transparent', fontWeight: 600, color: activeTab === 'employee' ? 'var(--color-primary)' : 'var(--text-muted)' }}>
-              Employee
+              style={{ padding: '24px 40px', borderBottom: activeTab === 'employee' ? '4px solid var(--color-primary)' : '4px solid transparent', fontWeight: 900, color: activeTab === 'employee' ? 'var(--color-primary)' : '#999', background: 'none', border: 'none', cursor: 'pointer', textTransform: 'uppercase', fontSize: 14, letterSpacing: '0.1em' }}>
+              Employee Portal
             </button>
           </div>
           
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 40, maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
-            <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {['A Dashboard That Puts Everything in Sight', 'Employee Management Made Effortless', 'Recruitment That Speeds Up Hiring', 'Attendance Tracking You Can Trust', 'Payroll Made Simple and Accurate'].map((item, i) => (
-                <div key={i} style={{ padding: 20, border: '1px solid var(--surface-border)', borderRadius: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: i === 2 ? '#fff' : '#fafafa', boxShadow: i === 2 ? '0 4px 20px rgba(0,0,0,0.05)' : 'none', color: i === 2 ? 'var(--color-primary)' : 'var(--text-secondary)', fontWeight: 600 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '350px 1fr', gap: 40, maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {['Real-time Operational Dashboard', 'Secure Personnel Records', 'Strategic Talent Acquisition', 'Enterprise Attendance Matrix', 'Compliant Payroll Processing'].map((item, i) => (
+                <div key={i} style={{ 
+                  padding: '24px 32px', 
+                  border: i === 0 ? '1px solid var(--color-primary)' : '1px solid #f0f0f0', 
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
+                  background: i === 0 ? 'var(--color-primary-100)' : '#fff', 
+                  color: i === 0 ? 'var(--color-primary)' : '#666', 
+                  fontWeight: 800, textTransform: 'uppercase', fontSize: 12, letterSpacing: '0.05em'
+                }}>
                   {item}
-                  {i === 2 ? <ArrowRight size={20} /> : <ChevronDown size={20} />}
+                  <ArrowRight size={16} opacity={i === 0 ? 1 : 0.3} />
                 </div>
               ))}
             </div>
-            <div style={{ flex: '2 1 400px', background: 'var(--surface-bg)', borderRadius: 24, padding: 40, border: '1px solid var(--surface-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-              [ Tab Content UI Mockup Asset Here ]
+            <div style={{ background: '#f8f9fc', border: '1px solid #f0f0f0', padding: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999', fontSize: 14, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+               Structural Interface Preview
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section id="reviews" style={{ padding: '100px 20px', background: '#f9f9f9', color: '#121212', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 36, fontWeight: 800, marginBottom: 60 }}>What Customers Say</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 32, maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
-          {[1, 2].map((i) => (
-            <div key={i} style={{ flex: '1 1 350px', background: '#fff', padding: 40, borderRadius: 24, boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
-              <div style={{ color: 'var(--color-primary)', fontSize: 40, fontWeight: 900, lineHeight: 1 }}>"</div>
-              <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 24 }}>
-                The HR dashboard is user-friendly and intuitive, making navigation easy. It saves me so much time every day by putting all the HR tools I need in one clean place.
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--color-primary-100)' }} />
-                  <div>
-                    <div style={{ fontWeight: 700 }}>Ahmed Maher</div>
-                    <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>Google</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontWeight: 700 }}>
-                  4.8 <Star size={16} fill="var(--color-gold)" color="var(--color-gold)" />
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
       {/* ── Pricing ── */}
-      <section id="plans" style={{ padding: '100px 20px', background: '#0a0a1a', color: '#fff', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 42, fontWeight: 900, marginBottom: 20, letterSpacing: '-0.02em' }}>{t('landing.pricing_title')}</h2>
-        <p style={{ fontSize: 18, color: '#98a1b2', maxWidth: 700, margin: '0 auto 60px', opacity: 0.8 }}>
+      <section id="plans" style={{ padding: '140px 20px', background: '#000', color: '#fff', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 48, fontWeight: 900, marginBottom: 24, letterSpacing: '-0.04em', textTransform: 'uppercase' }}>{t('landing.pricing_title')}</h2>
+        <p style={{ fontSize: 18, color: '#666', maxWidth: 700, margin: '0 auto 80px', fontWeight: 500 }}>
           {t('landing.pricing_sub')}
         </p>
         
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 32, maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 0, maxWidth: 1200, margin: '0 auto', textAlign: 'left' }}>
           {[
-            { title: 'Basic', price: '$19', features: ['Employee Database', 'Leave & Attendance', 'Basic Payroll', 'Self-Service'], button: 'Get Started' },
-            { title: 'Standard', price: '$49', features: ['Advanced Payroll', 'Performance Tracking', 'Workflow Automation', 'Reports'], button: 'Try Standard', highlight: true },
-            { title: 'Enterprise', price: 'Custom', features: ['AI Recruitment', 'Multi-Entity Support', 'API Access', '24/7 Support'], button: 'Contact Sales' }
+            { title: 'Base', price: '$19', features: ['Employee Database', 'Leave & Attendance', 'Basic Payroll', 'Self-Service'], button: 'Initialize' },
+            { title: 'Advanced', price: '$49', features: ['Advanced Payroll', 'Performance Tracking', 'Workflow Automation', 'Reports'], button: 'Upgrade Now', highlight: true },
+            { title: 'Enterprise', price: 'Contact', features: ['AI Recruitment', 'Multi-Entity Support', 'API Access', '24/7 Support'], button: 'Consultation' }
           ].map((p, i) => (
             <div key={i} style={{ 
-              flex: '1 1 320px', 
-              background: p.highlight ? 'linear-gradient(145deg, #1a1a3a 0%, #0a0a1a 100%)' : '#111122', 
+              flex: '1 1 350px', 
+              background: p.highlight ? '#111' : '#000', 
               color: '#fff', 
-              borderRadius: 32, 
-              padding: 48, 
-              border: p.highlight ? '2px solid var(--color-primary-300)' : '1px solid rgba(255,255,255,0.05)',
-              boxShadow: p.highlight ? '0 20px 40px rgba(0,0,0,0.4)' : 'none',
-              transform: p.highlight ? 'scale(1.05)' : 'none',
-              zIndex: p.highlight ? 10 : 1
+              padding: 60, 
+              border: '1px solid rgba(255,255,255,0.1)',
+              position: 'relative'
             }}>
-              <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 12, color: p.highlight ? 'var(--color-primary-100)' : '#fff' }}>{p.title}</div>
-              <div style={{ fontSize: 48, fontWeight: 900, color: '#fff', marginBottom: 32 }}>{p.price}</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 48 }}>
+              {p.highlight && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: 'var(--color-primary)' }} />}
+              <div style={{ fontSize: 14, fontWeight: 900, marginBottom: 12, color: p.highlight ? 'var(--color-primary)' : '#666', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{p.title}</div>
+              <div style={{ fontSize: 64, fontWeight: 900, color: '#fff', marginBottom: 40, letterSpacing: '-0.05em' }}>{p.price}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginBottom: 60 }}>
                 {p.features.map((f, j) => (
-                  <div key={j} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: '#c6c6fa' }}>
-                    <Check size={18} color="var(--color-primary-200)" />
+                  <div key={j} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 14, color: '#999', fontWeight: 600 }}>
+                    <div style={{ width: 4, height: 4, background: 'var(--color-primary)' }} />
                     {f}
                   </div>
                 ))}
               </div>
               <button style={{ 
-                width: '100%', padding: '16px', borderRadius: 99, 
-                background: p.highlight ? 'var(--color-primary)' : 'rgba(255,255,255,0.05)', 
-                color: '#fff', fontWeight: 800, fontSize: 16, border: 'none', cursor: 'pointer'
+                width: '100%', padding: '20px', 
+                background: p.highlight ? 'var(--color-primary)' : 'transparent', 
+                color: '#fff', fontWeight: 900, fontSize: 14, border: p.highlight ? 'none' : '1px solid #333', cursor: 'pointer',
+                textTransform: 'uppercase', letterSpacing: '0.1em'
               }}>
                 {p.button}
               </button>
@@ -251,64 +258,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin, onSignup }) => {
         </div>
       </section>
 
-      {/* ── FAQs ── */}
-      <section id="faqs" style={{ padding: '100px 20px', background: '#fff', color: '#121212', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 36, fontWeight: 800, marginBottom: 60 }}>Frequently Asked Questions</h2>
-        <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {[
-            { q: 'What can I do with this HR system?', a: 'You can manage employees, track attendance, handle payroll, post jobs, and send company announcements all from one place.' },
-            { q: 'Can I customize the system for my company\'s needs?', a: 'Yes, our platform is highly customizable.' },
-            { q: 'Is the system easy to use for non-technical users?', a: 'Absolutely, it was designed with simplicity in mind.' },
-            { q: 'Is the payroll automatically calculated?', a: 'Yes, automated payroll processing is included in standard and higher plans.' }
-          ].map((faq, i) => (
-            <div key={i} style={{ border: '1px solid var(--surface-border)', borderRadius: 16, overflow: 'hidden' }}>
-              <button 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                style={{ width: '100%', padding: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: openFaq === i ? '#f9f9f9' : '#fff', fontWeight: 600, color: openFaq === i ? 'var(--color-primary)' : 'var(--text-secondary)' }}>
-                {faq.q}
-                <ChevronDown size={20} style={{ transform: openFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              {openFaq === i && (
-                <div style={{ padding: '0 24px 24px', background: '#f9f9f9', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ── Footer ── */}
-      <footer style={{ background: '#1d2939', color: '#98a1b2', padding: '60px 20px 40px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 40, justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 40, marginBottom: 40 }}>
-          <div style={{ flex: '1 1 300px' }}>
-            <div className="logo" style={{ fontSize: 24, fontWeight: 900, color: '#fff', marginBottom: 20 }}>
-              Staff<span style={{ color: 'var(--color-primary-200)' }}>io</span>
+      <footer style={{ background: '#050505', color: '#444', padding: '100px 20px 60px', borderTop: '1px solid #111' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 80, paddingBottom: 80, marginBottom: 60 }}>
+          <div>
+            <div className="logo" style={{ fontSize: 32, fontWeight: 900, color: '#fff', marginBottom: 32, letterSpacing: '-0.05em' }}>
+              STAFFIO
             </div>
-            <p style={{ marginBottom: 24 }}>Contact With Us to Know More About Our Staffio System</p>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <input type="email" placeholder="Enter Your Email" style={{ padding: '12px 16px', borderRadius: 8, border: 'none', background: 'rgba(255,255,255,0.1)', color: '#fff', width: '100%', maxWidth: 200 }} />
-              <button style={{ padding: '12px 24px', borderRadius: 8, background: 'var(--color-primary-300)', color: '#fff', fontWeight: 600 }}>Send</button>
+            <p style={{ marginBottom: 40, lineHeight: 1.6, fontSize: 15 }}>Next-generation Human Capital Management system built for high-performance organizations.</p>
+            <div style={{ display: 'flex', gap: 1 }}>
+              <input type="email" placeholder="ENTER EMAIL" style={{ padding: '16px 24px', background: '#111', border: '1px solid #222', color: '#fff', width: '100%', fontSize: 12, fontWeight: 700 }} />
+              <button style={{ padding: '16px 32px', background: 'var(--color-primary)', color: '#fff', fontWeight: 900, border: 'none', cursor: 'pointer', fontSize: 12 }}>SUBMIT</button>
             </div>
           </div>
-          <div style={{ flex: '1 1 150px' }}>
-            <div style={{ color: '#fff', fontWeight: 700, marginBottom: 20 }}>Product</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div>
+            <div style={{ color: '#fff', fontWeight: 900, marginBottom: 32, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Core</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, fontSize: 14, fontWeight: 600 }}>
               <a href="#features">Features</a><a href="#reviews">Reviews</a><a href="#plans">Plans</a>
             </div>
           </div>
-          <div style={{ flex: '1 1 150px' }}>
-            <div style={{ color: '#fff', fontWeight: 700, marginBottom: 20 }}>Support</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <a href="#">Account Information</a><a href="#">Help Center</a>
+          <div>
+            <div style={{ color: '#fff', fontWeight: 900, marginBottom: 32, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Support</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, fontSize: 14, fontWeight: 600 }}>
+              <a href="#">Information</a><a href="#">Help Center</a><a href="#">Terms</a>
             </div>
           </div>
         </div>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 20, fontSize: 13 }}>
-          <div style={{ display: 'flex', gap: 24 }}>
-            <a href="#">Privacy Policy</a><a href="#">Terms of service</a>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, fontWeight: 700, letterSpacing: '0.05em' }}>
+          <div>© 2026 STAFFIO SYSTEM OPS. ALL RIGHTS RESERVED.</div>
+          <div style={{ display: 'flex', gap: 40 }}>
+            <a href="#">PRIVACY</a><a href="#">SECURITY</a>
           </div>
-          <div>© 2026 Staffio, Inc. All rights reserved.</div>
         </div>
       </footer>
     </div>

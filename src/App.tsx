@@ -81,7 +81,7 @@ const App: React.FC = () => {
   }
 
   if (viewRoute === 'auth' || !isAuthenticated) {
-    return <Auth onLogin={handleLogin} />;
+    return <Auth onLogin={handleLogin} onBack={() => setViewRoute('landing')} />;
   }
 
   return (

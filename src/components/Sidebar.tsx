@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView }) => {
           onClick={() => setActiveView('profile')}
         >
           <div style={{
-            width: 36, height: 36, borderRadius: '50%',
+            width: 36, height: 36, borderRadius: 0,
             background: 'rgba(226,226,253,0.15)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0,
